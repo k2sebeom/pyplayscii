@@ -1,0 +1,8 @@
+README.md
+setup.py
+playscii/__init__.py
+playscii/playscii.py
+pyplayscii.egg-info/PKG-INFO
+pyplayscii.egg-info/SOURCES.txt
+pyplayscii.egg-info/dependency_links.txt
+pyplayscii.egg-info/top_level.txt
