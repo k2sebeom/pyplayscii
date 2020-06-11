@@ -18,6 +18,13 @@ class GameManager(ABC):
         self.__title = ""
         self.controller = None
 
+    def find(self, obj_class):
+        obj_with_class = []
+        for game_object in self.__game_objects:
+            if isinstance(game_object, obj_class):
+                obj_with_class.append(game_object)
+        return obj_with_class
+
     def add_object(self, obj):
         self.__game_objects.append(obj)
 
@@ -94,6 +101,11 @@ class GameObject(ABC):
         self.delta_time = 0
         self.width = size[0]
         self.height = size[1]
+        self.__parent = None
+
+    @property
+    def parent(self):
+        return self.__parent
 
     def draw(self, board):
         render_text = self.__render.split('\n')
@@ -117,6 +129,5 @@ class GameObject(ABC):
                        <= other.y + other.height
                )
 
-    @abstractmethod
     def update(self):
         pass
