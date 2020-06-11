@@ -1,4 +1,5 @@
 import curses
+from _curses import error as size_error
 from abc import ABC, abstractmethod
 import time
 
@@ -45,7 +46,11 @@ class GameManager(ABC):
                 game_object.delta_time = self.delta_time
                 game_object.update()
                 game_object.draw(self.__board)
-            self.__update_board()
+            try:
+                self.__update_board()
+            except size_error:
+                raise size_error("Your terminal is too small! "
+                                 "Make it big enough")
             time.sleep(0.02)
 
     def set_flag(self, flag_key, flag_value):

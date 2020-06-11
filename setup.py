@@ -8,15 +8,17 @@ def get_readme():
         readme = readme_file.read()
         return readme
 
+
 def get_requirements():
     here = path.dirname(__file__)
     with open(path.join(here, 'requirements.txt'), encoding='UTF8') as req_file:
         req = req_file.read()
         return req
 
+
 setup(
     name="pyplayscii",
-    version="0.0.1",
+    version="0.1.0",
     author="SeBeom Lee",
     description="Unity style ascii art game engine",
     long_description=get_readme(),

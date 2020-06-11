@@ -21,6 +21,7 @@ class BounceManager(GameManager):
     def __init__(self):
         super().__init__((80, 20))
         self.ball = Ball()
+        self.set_title("Press q to quit")
 
     def setup(self):
         self.add_object(self.ball)
