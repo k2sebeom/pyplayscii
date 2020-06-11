@@ -18,9 +18,9 @@ def get_requirements():
 
 setup(
     name="pyplayscii",
-    version="0.1.0",
+    version="0.1.1",
     author="SeBeom Lee",
-    description="Unity style ascii art game engine",
+    description="Object oriented ascii art python game engine",
     long_description=get_readme(),
     install_requires=get_requirements(),
     long_description_content_type="text/markdown",
