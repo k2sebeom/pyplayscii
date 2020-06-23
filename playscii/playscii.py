@@ -68,15 +68,16 @@ class GameManager(ABC):
 
     def __update_board(self):
         self.__stdscr.clear()
-        self.__stdscr.addstr('-' * (self.width + 2) + '\n')
-        self.__stdscr.addstr(f"|{self.__title:^{self.width}}|\n")
-        self.__stdscr.addstr('-' * (self.width + 2) + '\n')
+        padding = ' ' * ((curses.COLS - self.width) // 2)
+        self.__stdscr.addstr(padding + '-' * (self.width + 2) + '\n')
+        self.__stdscr.addstr(padding + f"|{self.__title:^{self.width}}|\n")
+        self.__stdscr.addstr(padding + '-' * (self.width + 2) + '\n')
         for row in self.__board:
-            self.__stdscr.addch('|')
+            self.__stdscr.addstr(padding + '|')
             for curr in row:
                 self.__stdscr.addstr(f"{curr:^1}")
             self.__stdscr.addstr('|\n')
-        self.__stdscr.addstr('-' * (self.width + 2))
+        self.__stdscr.addstr(padding + '-' * (self.width + 2))
         self.__stdscr.refresh()
 
     def get_flag(self, flag_key):
