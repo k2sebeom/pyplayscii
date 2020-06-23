@@ -24,13 +24,16 @@ class GalagaManager(GameManager):
         self.cooling = False
         self.enemies = []
         self.bullets = []
-        self.spawn_time = 4
+        self.spawn_time = 3
+        self.score = 0
+        self.scoreboard = GameObject((WIDTH // 2, HEIGHT - 2), str(self.score))
 
     def setup(self):
         self.time = 0
         self.add_object(self.jet)
         self.set_title("Galaga with PyMODI")
         self.led.set_green()
+        self.add_object(self.scoreboard)
 
     def update(self):
         self.time += self.delta_time
@@ -38,7 +41,7 @@ class GalagaManager(GameManager):
         if self.time > self.spawn_time:
             self.time = 0
             self.spawn_enemy()
-
+        self.scoreboard.render = str(self.score)
         pitch = self.gyro.get_pitch()
         if pitch < 5 and self.jet.x < self.width - self.jet.width:
             self.jet.x += SPEED * self.delta_time
@@ -71,6 +74,7 @@ class GalagaManager(GameManager):
             enemy = self.enemies[i]
             if enemy.dead or enemy.check_death(self.bullets):
                 self.enemies.pop(i)
+                self.score += 1
                 if self.spawn_time > 0.7:
                     self.spawn_time -= 0.1
                 self.game_objects.remove(enemy)

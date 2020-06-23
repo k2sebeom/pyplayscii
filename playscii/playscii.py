@@ -103,7 +103,7 @@ class GameObject(ABC):
     def __init__(self, pos=(0, 0), render='', size=(0, 0)):
         self.x = pos[0]
         self.y = pos[1]
-        self.__render = render
+        self.render = render
         self.delta_time = 0
         self.width = size[0]
         self.height = size[1]
@@ -114,7 +114,7 @@ class GameObject(ABC):
         return self.__parent
 
     def draw(self, board):
-        render_text = self.__render.split('\n')
+        render_text = self.render.split('\n')
         x, y = int(self.x), int(self.y)
         if len(render_text) == 1 and render_text[0] == '':
             return
