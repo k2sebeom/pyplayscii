@@ -25,7 +25,7 @@ setup(
     install_requires=get_requirements(),
     long_description_content_type="text/markdown",
     url="https://github.com/k2sebeom/pyplayscii",
-    packages=find_packages(include=['playscii']),
+    packages=find_packages(include=['playscii', 'playscii.games']),
     test_suite="tests",
     classifiers=[
         "Programming Language :: Python :: 3",
