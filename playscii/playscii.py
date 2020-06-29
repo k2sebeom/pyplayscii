@@ -11,7 +11,7 @@ class GameManager(ABC):
         self.height = screen_size[1]
         self.__board = []
         self.__clear_board()
-        self.__stdscr = curses.initscr()
+        self.__stdscr = None
         self.__flags = dict()
         self.__flags['quit'] = False
         self.delta_time = 0
@@ -32,6 +32,7 @@ class GameManager(ABC):
         self.__title = title
 
     def start(self):
+        self.__stdscr = curses.initscr()
         self.setup()
         while True:
             if self.__flags['quit']:
