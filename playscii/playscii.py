@@ -49,8 +49,8 @@ class GameManager(ABC):
             try:
                 self.__update_board()
             except size_error:
-                raise size_error("Your terminal is too small! "
-                                 "Make it big enough")
+                curses.resize_term(self.height + 5, self.width + 10)
+                self.__stdscr.refresh()
             time.sleep(0.02)
 
     def set_flag(self, flag_key, flag_value):

@@ -2,6 +2,7 @@ from setuptools import setup, find_packages
 from os import path
 import os
 
+
 def get_readme():
     here = path.dirname(__file__)
     with open(path.join(here, 'README.md'), encoding='UTF8') as readme_file:
