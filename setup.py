@@ -22,6 +22,8 @@ def get_requirements():
     here = path.dirname(__file__)
     with open(path.join(here, 'requirements.txt'), encoding='UTF8') as req_file:
         req = req_file.read().splitlines()
+        if os.name == 'nt':
+            req.append('windows-curses')
         return req
 
 
