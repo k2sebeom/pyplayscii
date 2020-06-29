@@ -17,7 +17,6 @@ class GameManager(ABC):
         self.delta_time = 0
         self.__old_time = time.time()
         self.__title = ""
-        self.controller = None
 
     def find(self, obj_class):
         obj_with_class = []

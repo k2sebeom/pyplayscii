@@ -9,6 +9,14 @@ def get_readme():
         return readme
 
 
+def get_history():
+    here = path.dirname(__file__)
+    with open(path.join(here, 'HISTORY.md'),
+              encoding='utf8') as history_file:
+        history = history_file.read()
+        return history
+
+
 def get_requirements():
     here = path.dirname(__file__)
     with open(path.join(here, 'requirements.txt'), encoding='UTF8') as req_file:
@@ -18,7 +26,7 @@ def get_requirements():
 
 setup(
     name="pyplayscii",
-    version="0.1.3",
+    version="0.1.4",
     author="SeBeom Lee",
     description="Object oriented ascii art python game engine",
     long_description=get_readme(),
