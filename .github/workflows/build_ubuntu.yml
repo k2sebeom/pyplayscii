@@ -3,9 +3,7 @@
 
 name: Unit Test (Ubuntu)
 
-on:
-  push:
-    branches: [ master ]
+on: push
 
 jobs:
   build:
