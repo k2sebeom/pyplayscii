@@ -2,12 +2,12 @@
   <img src="https://github.com/k2sebeom/pyplayscii/blob/master/src/img/PlayScii.png" width=700 height=200>
 </p>
 
+------
+
 [![PyPI version](https://badge.fury.io/py/pyplayscii.svg)](https://badge.fury.io/py/pyplayscii)
 [![image](https://img.shields.io/pypi/pyversions/pyplayscii.svg)](https://pypi.python.org/pypi/pyplayscii)
 ![Build Status](https://github.com/k2sebeom/pyplayscii/workflows/Build%20Status/badge.svg?branch=master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/k2sebeom/pyplayscii/blob/master/LICENSE)
-
-------
 
 ## Description
 PyPlayScii is a Python package that enables an simple object oriented implementation of ascii art games. By asigning the shapes of the game objects by texts seprated by newline characters and determining what to do every frame, you can quickly implement an ascii art game which can be run directly on terminal window. The following shows an example of an ascii art game implemented by PyPlayScii.
