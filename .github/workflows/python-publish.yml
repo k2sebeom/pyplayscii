@@ -4,7 +4,8 @@
 name: Upload Python Package
 
 on:
-  deployment
+  release:
+    types: [created]
 
 jobs:
   deploy:
