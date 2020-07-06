@@ -1,5 +1,4 @@
 from playscii import GameManager, GameObject
-from playscii.input import Input
 from threading import Timer
 from random import randint
 
@@ -15,8 +14,11 @@ WIDTH, HEIGHT, SPEED, ENEMY_SPEED = 50, 25, 30, 5
 
 
 class GalagaManager(GameManager):
-    def __init__(self):
+    def __init__(self, gyro, button, led):
         super().__init__((WIDTH, HEIGHT))
+        self.gyro = gyro
+        self.button = button
+        self.led = led
         self.time = 0
         self.jet = Jet(pos=(WIDTH // 2, 3))
         self.cooling = False
@@ -30,6 +32,7 @@ class GalagaManager(GameManager):
         self.time = 0
         self.add_object(self.jet)
         self.set_title("Galaga with PyMODI")
+        self.led.green = 255
         self.add_object(self.scoreboard)
 
     def update(self):
@@ -39,18 +42,19 @@ class GalagaManager(GameManager):
             self.time = 0
             self.spawn_enemy()
         self.scoreboard.render = str(self.score)
-
-        if Input.get_key('right') and self.jet.x < self.width - self.jet.width:
+        pitch = self.gyro.pitch
+        if pitch < 5 and self.jet.x < self.width - self.jet.width:
             self.jet.x += SPEED * self.delta_time
-        elif Input.get_key('left') and self.jet.x > 0:
+        elif pitch > 5 and self.jet.x > 0:
             self.jet.x -= SPEED * self.delta_time
-        if Input.get_key('space'):
+        if self.button.pressed:
             if not self.cooling:
                 self.cooling = True
                 self.jet.shoot(self)
                 Timer(0.2, self.cool_off).start()
         if self.jet.check_death(self.enemies):
             self.set_title("GAME OVER")
+            self.led.rgb = 255, 0, 0
             self.quit()
             return
         self.clean_enemies()
