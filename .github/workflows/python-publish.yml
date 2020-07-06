@@ -22,5 +22,5 @@ jobs:
         python -m pip install --upgrade pip
         pip install setuptools wheel twine
     - name: Build and publish
-        echo "I am releasing!!"
+      run: echo "I am releasing!!"
 
