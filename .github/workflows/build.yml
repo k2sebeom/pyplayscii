@@ -23,7 +23,10 @@ jobs:
     - name: Test PEP8 convention with flake8
       run: |
         python -m flake8 playscii
-        git branch
+        git config --local user.email ${{ secrets.GITHUB_EMAIL }}
+        git config --local user.name ${{ secrets.GITHUB_NAME }}
+        git checkout -b "test/$(git branch | cut -d '/' -f 2)"
+        git push
     - name: Test with unittest
       run: |
         python -m unittest
