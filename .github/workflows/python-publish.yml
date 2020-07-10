@@ -27,6 +27,7 @@ jobs:
         git config --local user.name ${{ secrets.GH_USER }}
         bumpversion patch
         git rev-parse --abbrev-ref HEAD
+        git branch
         git push origin
         BRANCH_NAME="release/$(cat setup.cfg | grep 'current_version = ' | cut -d '=' -f 2 | cut -c 2-6)"
         git checkout -b $BRANCH_NAME
