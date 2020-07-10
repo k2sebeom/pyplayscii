@@ -8,7 +8,7 @@ on:
     types: [created]
 
 jobs:
-  deploy:
+  release:
 
     runs-on: ubuntu-latest
     steps:
@@ -21,6 +21,21 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install setuptools wheel twine
+    - name: Checkout release branch
+    - run: |
+        git config --local user.email ${{ secrets.GH_MAIL }}
+        git config --local user.name ${{ secrets.GH_USER }}
+        BRANCH_NAME="release/$(git branch | cut -d '/' -f 2 | cut -c -5)0"
+        bumpversion patch
+        git checkout -b $BRANCH_NAME
+        git remote -v
+        git push --set-upstream origin $BRANCH_NAME
+    - name: Create a pull request to master branch
+      uses: repo-sync/pull-request@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        pr_title: "Merge new release of ${{ github.ref }}"
+        source_branch: $BRANCH_NAME
     - name: Build and publish
       env:
         TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}

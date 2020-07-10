@@ -19,22 +19,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install flake8
-        pip install -r requirements.txt bumpversion
+        pip install -r requirements.txt
     - name: Test PEP8 convention with flake8
       run: |
         python -m flake8 playscii
-        git config --local user.email ${{ secrets.GH_MAIL }}
-        git config --local user.name ${{ secrets.GH_USER }}
-        BRANCH_NAME="release/$(git branch | cut -d '/' -f 2 | cut -c -5)0"
-        bumpversion patch
-        git checkout -b $BRANCH_NAME
-        git remote -v
-        git push --set-upstream origin $BRANCH_NAME
-    - name: Create a pull request to master branch
-      uses: repo-sync/pull-request@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        pr_title: "Merge new release of ${{ github.ref }}"
     - name: Test with unittest
       run: |
         python -m unittest
