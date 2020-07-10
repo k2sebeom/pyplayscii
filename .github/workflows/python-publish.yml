@@ -22,7 +22,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install setuptools wheel twine
     - name: Checkout release branch
-    - run: |
+      run: |
         git config --local user.email ${{ secrets.GH_MAIL }}
         git config --local user.name ${{ secrets.GH_USER }}
         BRANCH_NAME="release/$(git branch | cut -d '/' -f 2 | cut -c -5)0"
