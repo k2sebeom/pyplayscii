@@ -29,6 +29,8 @@ jobs:
         git checkout -b $BRANCH_NAME
         git remote -v
         git push --set-upstream origin $BRANCH_NAME
+    - name: Create a pull request to master branch
+      uses: repo-sync/pull-request@master
     - name: Test with unittest
       run: |
         python -m unittest
