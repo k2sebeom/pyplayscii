@@ -26,16 +26,17 @@ jobs:
         git config --local user.email ${{ secrets.GH_MAIL }}
         git config --local user.name ${{ secrets.GH_USER }}
         bumpversion patch
-        echo ${GITHUB_REF#refs/heads/}
-        git push origin
         BRANCH_NAME="release/$(cat setup.cfg | grep 'current_version = ' | cut -d '=' -f 2 | cut -c 2-6)"
+        echo "::set-output name=new_branch::($BRANCH_NAME)"
         git checkout -b $BRANCH_NAME
         git push --set-upstream origin $BRANCH_NAME
+      id: checkout_branch
     - name: GitHub Pull Request Action
       uses: vsoch/pull-request-action@1.0.6
       with:
         pr_title: "Merge new release"
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        source_branch: ${{ steps.checkout_branch.outputs.new_branch }}
     - name: Build and publish
       env:
         TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
