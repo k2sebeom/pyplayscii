@@ -5,7 +5,7 @@ name: Upload Python Package
 
 on:
   release:
-    types: [created]
+    types: [created, edited]
 
 jobs:
   release:
@@ -25,12 +25,10 @@ jobs:
       run: |
         git config --local user.email ${{ secrets.GH_MAIL }}
         git config --local user.name ${{ secrets.GH_USER }}
-        git branch
-        echo $(git branch | cut -d '/' -f 2)
-        BRANCH_NAME="release/$(git branch | cut -d '/' -f 2 | cut -c -5)0"
+        bumpversion patch
+        BRANCH_NAME="release/$(cat setup.cfg | grep 'current_version = ' | cut -d '=' -f 2 | cut -c 2-5)0"
         echo $BRANCH_NAME
         git checkout -b $BRANCH_NAME
-        bumpversion patch
         git push --set-upstream origin $BRANCH_NAME
     - name: Create a pull request to master branch
       uses: repo-sync/pull-request@master
