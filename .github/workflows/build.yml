@@ -26,7 +26,7 @@ jobs:
         bumpversion patch
         git config --local user.email ${{ secrets.GH_MAIL }}
         git config --local user.name ${{ secrets.GH_USER }}
-        BRANCH_NAME="test/$(git branch | cut -d '/' -f 2)"
+        BRANCH_NAME="release/$(git branch | cut -d '/' -f 2 | cut -c -5)0"
         git checkout -b $BRANCH_NAME
         git remote -v
         git push --set-upstream origin $BRANCH_NAME
@@ -34,6 +34,7 @@ jobs:
       uses: repo-sync/pull-request@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        pr_title: "Merge new release of ${{ github.ref }}"
     - name: Test with unittest
       run: |
         python -m unittest
