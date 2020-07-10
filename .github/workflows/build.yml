@@ -26,9 +26,9 @@ jobs:
         git config --local user.email ${{ secrets.GH_MAIL }}
         git config --local user.name ${{ secrets.GH_USER }}
         BRANCH_NAME="test/$(git branch | cut -d '/' -f 2)"
-        git remote -v
         git checkout -b $BRANCH_NAME
-        git push
+        git remote -v
+        git push --set-upstream origin $BRANCH_NAME
     - name: Test with unittest
       run: |
         python -m unittest
