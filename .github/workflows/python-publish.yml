@@ -34,6 +34,7 @@ jobs:
       uses: repo-sync/pull-request@master
       with:
         pr_title: "Merge new release"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Build and publish
       env:
         TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
