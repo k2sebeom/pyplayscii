@@ -32,7 +32,7 @@ jobs:
         git push --set-upstream origin $BRANCH_NAME
       id: checkout_branch
     - name: GitHub Pull Request Action
-      uses: vsoch/pull-request-action@1.0.6
+      uses: repo-sync/pull-request@master
       with:
         pr_title: "Merge new release"
         github_token: ${{ secrets.GITHUB_TOKEN }}
