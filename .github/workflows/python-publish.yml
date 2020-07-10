@@ -35,7 +35,7 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         pr_title: "Merge new release of ${{ github.ref }}"
-        source_branch: $BRANCH_NAME
+        source_branch: ${{ BRANCH_NAME }}
     - name: Build and publish
       env:
         TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
