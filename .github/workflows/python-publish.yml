@@ -26,9 +26,9 @@ jobs:
         git config --local user.email ${{ secrets.GH_MAIL }}
         git config --local user.name ${{ secrets.GH_USER }}
         BRANCH_NAME="release/$(git branch | cut -d '/' -f 2 | cut -c -5)0"
-        bumpversion patch
+        echo $BRANCH_NAME
         git checkout -b $BRANCH_NAME
-        git remote -v
+        bumpversion patch
         git push --set-upstream origin $BRANCH_NAME
     - name: Create a pull request to master branch
       uses: repo-sync/pull-request@master
