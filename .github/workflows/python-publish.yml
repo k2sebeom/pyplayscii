@@ -25,6 +25,8 @@ jobs:
       run: |
         git config --local user.email ${{ secrets.GH_MAIL }}
         git config --local user.name ${{ secrets.GH_USER }}
+        git branch
+        echo $(git branch | cut -d '/' -f 2)
         BRANCH_NAME="release/$(git branch | cut -d '/' -f 2 | cut -c -5)0"
         echo $BRANCH_NAME
         git checkout -b $BRANCH_NAME
