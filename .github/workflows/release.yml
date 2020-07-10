@@ -1,0 +1,20 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Send Pull Request
+
+on: push
+  branches:
+    - release/*
+
+jobs:
+  build:
+    name: pull request
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Create a pull request to master branch
+      uses: repo-sync/pull-request@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        pr_title: "Merge new release"
