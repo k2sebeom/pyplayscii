@@ -25,7 +25,9 @@ jobs:
         python -m flake8 playscii
         git config --local user.email ${{ secrets.GH_MAIL }}
         git config --local user.name ${{ secrets.GH_USER }}
-        git checkout -b "test/$(git branch | cut -d '/' -f 2)"
+        BRANCH_NAME="test/$(git branch | cut -d '/' -f 2)"
+        git remote -v
+        git checkout -b $BRANCH_NAME
         git push
     - name: Test with unittest
       run: |
