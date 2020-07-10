@@ -23,10 +23,10 @@ jobs:
     - name: Test PEP8 convention with flake8
       run: |
         python -m flake8 playscii
-        bumpversion patch
         git config --local user.email ${{ secrets.GH_MAIL }}
         git config --local user.name ${{ secrets.GH_USER }}
         BRANCH_NAME="release/$(git branch | cut -d '/' -f 2 | cut -c -5)0"
+        bumpversion patch
         git checkout -b $BRANCH_NAME
         git remote -v
         git push --set-upstream origin $BRANCH_NAME
