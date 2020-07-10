@@ -26,16 +26,16 @@ jobs:
         git config --local user.email ${{ secrets.GH_MAIL }}
         git config --local user.name ${{ secrets.GH_USER }}
         bumpversion patch
-        BRANCH_NAME="release/$(cat setup.cfg | grep 'current_version = ' | cut -d '=' -f 2 | cut -c 2-5)0"
+        BRANCH_NAME="release/$(cat setup.cfg | grep 'current_version = ' | cut -d '=' -f 2 | cut -c 2-6)"
         echo $BRANCH_NAME
+        git push
         git checkout -b $BRANCH_NAME
         git push --set-upstream origin $BRANCH_NAME
     - name: Create a pull request to master branch
       uses: repo-sync/pull-request@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        pr_title: "Merge new release of ${{ github.ref }}"
-        source_branch: {{ BRANCH_NAME }}
+        pr_title: "Merge new release"
     - name: Build and publish
       env:
         TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
