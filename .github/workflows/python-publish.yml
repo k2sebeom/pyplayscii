@@ -25,6 +25,7 @@ jobs:
       run: |
         git config --local user.email ${{ secrets.GH_MAIL }}
         git config --local user.name ${{ secrets.GH_USER }}
+        git branch -a
         bumpversion patch
         BRANCH_NAME="release/$(cat setup.cfg | grep 'current_version = ' | cut -d '=' -f 2 | cut -c 2-6)"
         echo "::set-output name=new_branch::$BRANCH_NAME"
