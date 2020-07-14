@@ -27,8 +27,10 @@ jobs:
         git config --local user.name ${{ secrets.GH_USER }}
         NEW_VERSION=$(git describe --tags | cut -d - -f 1)
         CURR_VERSION=$(cat setup.cfg | grep 'current_version = ' | cut -d '=' -f 2 | cut -c 2-6)
-        sudo chmod -x ./version_up.sh
-        ./version_up.sh $NEW_VERSION $CURR_VERSION
+        if [[ $(echo $NEW_VERSION | cut -d '.' -f 1 ) != $(echo $CURR_VERSION | cut -d '.' -f 1) ]]; then bumpversion major;
+        elif [[ $(echo $NEW_VERSION | cut -d '.' -f 2 ) != $(echo $CURR_VERSION | cut -d '.' -f 2) ]]; then bumpversion minor;
+        elif [[ $(echo $NEW_VERSION | cut -d '.' -f 3 ) != $(echo $CURR_VERSION | cut -d '.' -f 3) ]]; then bumpversion patch;
+        fi
         BRANCH_NAME="release/$NEW_VERSION"
         echo "::set-output name=new_branch::$BRANCH_NAME"
         git checkout -b $BRANCH_NAME
