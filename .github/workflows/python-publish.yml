@@ -27,6 +27,7 @@ jobs:
         git config --local user.name ${{ secrets.GH_USER }}
         NEW_VERSION=$(git describe --tags | cut -d - -f 1)
         CURR_VERSION=$(cat setup.cfg | grep 'current_version = ' | cut -d '=' -f 2 | cut -c 2-6)
+        chmod -x ./version_up.sh
         ./version_up.sh $NEW_VERSION $CURR_VERSION
         BRANCH_NAME="release/$NEW_VERSION"
         echo "::set-output name=new_branch::$BRANCH_NAME"
