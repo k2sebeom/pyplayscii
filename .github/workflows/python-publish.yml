@@ -28,7 +28,7 @@ jobs:
         NEW_VERSION=$(git describe --tags | cut -d - -f 1)
         CURR_VERSION=$(cat setup.cfg | grep 'current_version = ' | cut -d '=' -f 2 | cut -c 2-6)
         sudo chmod -x ./version_up.sh
-        sudo ./version_up.sh $NEW_VERSION $CURR_VERSION
+        ./version_up.sh $NEW_VERSION $CURR_VERSION
         BRANCH_NAME="release/$NEW_VERSION"
         echo "::set-output name=new_branch::$BRANCH_NAME"
         git checkout -b $BRANCH_NAME
