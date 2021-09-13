@@ -7,7 +7,7 @@ class Input:
 
     @classmethod
     def get_key(cls, key) -> bool:
-        "Returns True if the given key is pressed. Can be a keycode or a key name."
+        "Returns True if the given key is pressed."
         if keyboard.is_pressed(key):
             cls.pressed_keys[key] = True
             return True
