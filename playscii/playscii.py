@@ -2,10 +2,11 @@ import curses
 from _curses import error as size_error
 from abc import ABC, abstractmethod
 import time
+import typing
 
 
 class GameManager(ABC):
-    def __init__(self, screen_size: tuple[int, int]):
+    def __init__(self, screen_size: typing.Tuple[int, int]):
         self.__game_objects = []
         self.width: int = screen_size[0]
         self.height: int = screen_size[1]
@@ -109,9 +110,9 @@ class GameObject(ABC):
     "An abstract base class for pyplayscii game objects."
 
     def __init__(self,
-                 pos: tuple[int, int] = (0, 0),
+                 pos: typing.Tuple[int, int] = (0, 0),
                  render: str = '',
-                 size: tuple[int, int] = (0, 0)):
+                 size: typing.Tuple[int, int] = (0, 0)):
         self.x: int = pos[0]
         self.y: int = pos[1]
         self.render: str = render
