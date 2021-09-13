@@ -108,9 +108,9 @@ class GameManager(ABC):
 class GameObject(ABC):
     "An abstract base class for pyplayscii game objects."
 
-    def __init__(self, 
+    def __init__(self,
                  pos: tuple[int, int] = (0, 0),
-                 render: str = '', 
+                 render: str = '',
                  size: tuple[int, int] = (0, 0)):
         self.x: int = pos[0]
         self.y: int = pos[1]
