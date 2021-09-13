@@ -18,7 +18,7 @@ class GameManager(ABC):
         self.__old_time = time.time()
         self.__title: str = ""
 
-    def find(self, obj_class: 'GameObject') -> list['GameObject']:
+    def find(self, obj_class: 'GameObject') -> typing.List['GameObject']:
         return [
             game_object
             for game_object in self.__game_objects
