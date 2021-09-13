@@ -2,10 +2,12 @@ import keyboard
 
 
 class Input:
+    "A class to handle pyplayscii key presses."
     pressed_keys = dict()
 
     @classmethod
-    def get_key(cls, key):
+    def get_key(cls, key) -> bool:
+        "Returns True if the given key is pressed. Can be a keycode or a key name."
         if keyboard.is_pressed(key):
             cls.pressed_keys[key] = True
             return True
@@ -14,7 +16,7 @@ class Input:
             return False
 
     @classmethod
-    def get_key_down(cls, key):
+    def get_key_down(cls, key) -> bool:
         if not keyboard.is_pressed(key):
             cls.pressed_keys[key] = False
             return False

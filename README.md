@@ -10,6 +10,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/k2sebeom/pyplayscii/blob/master/LICENSE)
 
 ## Description
+
 PyPlayScii is a Python package that enables an simple object oriented implementation of ascii art games. By asigning the shapes of the game objects by texts seprated by newline characters and determining what to do every frame, you can quickly implement an ascii art game which can be run directly on terminal window. The following shows an example of an ascii art game implemented by PyPlayScii.
 
 Click the image to watch Galaga made with PyPlayscii!!
@@ -38,6 +39,7 @@ Click the image to watch Galaga made with PyPlayscii!!
 Let's make a very simple example of a bouncing ball!! A full source code for the following tutorial can be found <a href="examples/bounce.py">here.</a>
 
 #### Step 1. Importing the package
+
 Once you download the pyplayscii package, you can access the module by the following codes.
 
 ```python
@@ -48,6 +50,7 @@ from playscii.input import Input
 GameObject and GamaManager are the most important classes of the pyplayscii package. GameManager will be the backbone of the game engine, and the GameObject will be the members of your game.
 
 #### Step 2. Making a GameObject
+
 The GameManager is the stage, and the GameObjects will be your actors!! Make a game object so that those objects can be used in the GameManager. You can use the plain form of GameObject, but you can also define your own one. In this example, we will make an object named a Ball. One of the most important methods of the GameObject is "update" method. This method will be called every frame when your gamemanager is running.
 
 First, let's define how the ball looks like. All you need to do is make a string, separated by newline characters.

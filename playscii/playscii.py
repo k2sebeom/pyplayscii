@@ -5,33 +5,34 @@ import time
 
 
 class GameManager(ABC):
-    def __init__(self, screen_size):
+    def __init__(self, screen_size: tuple[int, int]):
         self.__game_objects = []
-        self.width = screen_size[0]
-        self.height = screen_size[1]
-        self.__board = []
+        self.width: int = screen_size[0]
+        self.height: int = screen_size[1]
+        self.__board: list = []
         self.__clear_board()
         self.__stdscr = None
-        self.__flags = dict()
-        self.__flags['quit'] = False
+        self.__flags: dict = {'quit': False}
         self.delta_time = 0
         self.__old_time = time.time()
-        self.__title = ""
+        self.__title: str = ""
 
-    def find(self, obj_class):
-        obj_with_class = []
-        for game_object in self.__game_objects:
-            if isinstance(game_object, obj_class):
-                obj_with_class.append(game_object)
-        return obj_with_class
+    def find(self, obj_class: 'GameObject') -> list['GameObject']:
+        return [
+            game_object
+            for game_object in self.__game_objects
+            if isinstance(game_object, obj_class)
+        ]
 
-    def add_object(self, obj):
+    def add_object(self, obj: 'GameObject'):
         self.__game_objects.append(obj)
 
-    def set_title(self, title):
+    def set_title(self, title: str):
+        "Sets the pyplayscii window title."
         self.__title = title
 
     def start(self):
+        "Starts the pyplayscii window and game."
         self.__stdscr = curses.initscr()
         self.setup()
         while True:
@@ -54,19 +55,23 @@ class GameManager(ABC):
             time.sleep(0.02)
 
     def set_flag(self, flag_key, flag_value):
+        "Sets a GameManager flag."
         if flag_key not in self.__flags:
             raise KeyError
         else:
             self.__flags[flag_key] = flag_value
 
     def quit(self):
+        "Closes game and exits pyplayscii."
         self.set_flag('quit', True)
 
     def __clear_board(self):
+        "Clears the graphical board."
         self.__board = [[" " for _ in range(self.width)]
                         for _ in range(self.height)]
 
     def __update_board(self):
+        "Updates the graphical board."
         self.__stdscr.clear()
         padding = ' ' * ((curses.COLS - self.width) // 2)
         self.__stdscr.addstr(padding + '-' * (self.width + 2) + '\n')
@@ -81,6 +86,7 @@ class GameManager(ABC):
         self.__stdscr.refresh()
 
     def get_flag(self, flag_key):
+        "Returns the corresponding flag value."
         if flag_key not in self.__flags:
             raise KeyError
         else:
@@ -100,20 +106,22 @@ class GameManager(ABC):
 
 
 class GameObject(ABC):
-    def __init__(self, pos=(0, 0), render='', size=(0, 0)):
-        self.x = pos[0]
-        self.y = pos[1]
-        self.render = render
+    "An abstract base class for pyplayscii game objects."
+    def __init__(self, pos: tuple[int, int]=(0, 0), render: str='', size: tuple[int, int]=(0, 0)):
+        self.x: int = pos[0]
+        self.y: int = pos[1]
+        self.render: str = render
         self.delta_time = 0
-        self.width = size[0]
-        self.height = size[1]
+        self.width: int = size[0]
+        self.height: int = size[1]
         self.__parent = None
 
     @property
     def parent(self):
         return self.__parent
 
-    def draw(self, board):
+    def draw(self, board: list):
+        "Draws this GameObject on the graphical board."
         render_text = self.render.split('\n')
         x, y = int(self.x), int(self.y)
         if len(render_text) == 1 and render_text[0] == '':
@@ -126,14 +134,15 @@ class GameObject(ABC):
                     continue
                 board[~(y - i)][x + j] = render_text[i][j]
 
-    def on_collision(self, other):
+    def on_collision(self, other: 'GameObject') -> bool:
+        "Returns True if the GameObject has collided with another GameObject."
         return (
-                       other.x - other.width <= self.x
-                       <= other.x + other.width
-               ) and (
-                       other.y - other.height <= self.y
-                       <= other.y + other.height
-               )
+            other.x - other.width <= self.x
+            <= other.x + other.width
+        ) and (
+            other.y - other.height <= self.y
+            <= other.y + other.height
+        )
 
     def update(self):
         pass
